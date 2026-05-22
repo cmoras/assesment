@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: data-pipeline-error-rate
+  namespace: monitoring
+spec:
+  groups:
+  - name: sli-error-rate
+    rules:
+    - alert: HighErrorRate
+      expr: |
+        sum(rate(http_requests_total{job="data-pipeline-metrics",status=~"5.."}[5m]))
+        /
+        sum(rate(http_requests_total{job="data-pipeline-metrics"}[5m]))
+        > 0.05
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "High error rate detected"
+        description: "5xx error rate is above 5% for more than 5 minutes"

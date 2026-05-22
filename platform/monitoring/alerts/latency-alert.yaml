@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: data-pipeline-latency
+  namespace: monitoring
+spec:
+  groups:
+  - name: sli-latency
+    rules:
+    - alert: HighP99Latency
+      expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job="data-pipeline-metrics"}[5m])) > 0.5
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "High P99 latency detected"
+        description: "P99 latency is above 500ms for more than 5 minutes"

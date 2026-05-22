@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: data-pipeline-metrics
+  namespace: data-pipeline
+spec:
+  selector:
+    matchLabels:
+      app: data-pipeline
+  endpoints:
+  - port: metrics
+    interval: 30s
