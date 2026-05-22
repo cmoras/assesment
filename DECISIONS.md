@@ -79,25 +79,8 @@ This document summarizes the top 5 architecture decisions made for this data pip
 
 → See [docs/decisions/004-sli-selection.md](docs/decisions/004-sli-selection.md)
 
----
 
-## AI Tool Usage
-
-### What Was Accepted
-- Standard Terraform module structure (VPC, EKS, IAM)
-- Kubernetes base manifests with security contexts
-- Flask application structure with logging and metrics
-- GitHub Actions workflow patterns
-
-### What Was Rejected
-- /24 private subnets (too small for VPC CNI) → Changed to /19
-- Monolithic Terraform state → Changed to split state per layer
-- Wildcard IAM permissions (`Resource: "*"`) → Changed to specific ARN scoping
-- Public-only EKS endpoint → Changed to public + private for security
-
-### What Was Modified
-- Added IRSA (IAM Roles for Service Accounts) for pod-level AWS permissions
-- Added KMS encryption for EKS secrets (optional, configurable)
-- Added SSH access controls for node groups (optional, disabled by default)
-- Enhanced Gatekeeper policies with namespace exclusions
-- Split requirements.txt into production vs development dependencies
+## Portions generated using llm
+- application code
+- portions of terraform module related work.
+- all kustomize build related work.   
